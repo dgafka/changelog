@@ -2,7 +2,7 @@
 
 $finder = PhpCsFixer\Finder::create()
     ->in([
-        __DIR__ . '/packages'
+        __DIR__ . '/src'
     ])
     ->name('*.php');
 
