@@ -37,6 +37,7 @@ jobs:
 
   php-cs-fixer:
     name: "Auto fix PHP CS"
+    needs: get_packages
     runs-on: ubuntu-latest
 
     steps:
@@ -65,7 +66,7 @@ jobs:
 
   split_packages:
     name: Split Package ${{ matrix.package.name }}
-    needs: get_packages
+    needs: php-cs-fixer
     runs-on: ubuntu-latest
 
     strategy:
