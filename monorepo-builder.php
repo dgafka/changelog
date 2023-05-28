@@ -16,15 +16,6 @@ use Symplify\MonorepoBuilder\Release\ReleaseWorker\UpdateReplaceReleaseWorker;
 return static function (MBConfig $containerConfigurator): void {
     $containerConfigurator->packageDirectories([__DIR__ . '/packages']);
     $containerConfigurator->dataToAppend([
-        ComposerJsonSection::AUTOLOAD_DEV => [
-            'psr-4' => [
-                "Tests\\Ecotone\\" => "tests",
-                "IncorrectAttribute\\" => [
-                    "tests\\AnnotationFinder\\Fixture\\Usage\\Attribute\\TestingNamespace\\IncorrectAttribute\\TestingNamespace"
-                ],
-            ],
-        ],
-
         ComposerJsonSection::REQUIRE_DEV => [
             "behat/behat" => "^3.10",
             "friendsofphp/php-cs-fixer" => "^3.9",
@@ -40,11 +31,5 @@ return static function (MBConfig $containerConfigurator): void {
     $services = $containerConfigurator->services();
     # release workers - in order to execute
     $services->set(UpdateReplaceReleaseWorker::class);
-    $services->set(SetCurrentMutualDependenciesReleaseWorker::class);
-    $services->set(AddTagToChangelogReleaseWorker::class);
-    $services->set(TagVersionReleaseWorker::class);
-    $services->set(PushTagReleaseWorker::class);
-    $services->set(SetNextMutualDependenciesReleaseWorker::class);
     $services->set(UpdateBranchAliasReleaseWorker::class);
-    $services->set(PushNextDevReleaseWorker::class);
 };

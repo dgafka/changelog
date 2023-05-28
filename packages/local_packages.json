@@ -1,0 +1,12 @@
+{
+    "repositories": [
+      {
+        "type": "path",
+        "url": "ChangeLogCqrs"
+      },
+      {
+        "type": "path",
+        "url": "ChangeLogEventHandling"
+      }
+    ]
+}
