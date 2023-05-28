@@ -47,7 +47,7 @@ jobs:
 
   get_packages:
     name: Package splitting
-    needs: php-cs-fixer
+    needs: prepare-code-for-release
     runs-on: ubuntu-latest
 
     steps:
