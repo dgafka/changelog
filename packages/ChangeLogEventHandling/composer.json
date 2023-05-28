@@ -9,7 +9,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "App\\CQRS\\": "src"
+            "App\\EventHandling\\": "src"
         }
     },
     "require": {
@@ -32,6 +32,9 @@
             "include": [
                 "../../config.json"
             ]
+        },
+        "ecotone": {
+            "repository": "change-log-event-handling"
         }
     }
 }
