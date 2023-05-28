@@ -1,4 +1,5 @@
 {
+    "name": "dgafka/change-log-event-handling",
     "type": "ecotone-quickstart",
     "license": "MIT",
     "authors": [

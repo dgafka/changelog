@@ -1,4 +1,5 @@
 {
+    "name": "dgafka/change-log-cqrs",
     "type": "ecotone-quickstart",
     "license": "MIT",
     "authors": [
