@@ -10,32 +10,8 @@ env:
   GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
 jobs:
-  get_packages:
-    name: Package splitting
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Set Up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.1
-          coverage: none
-
-      - uses: actions/checkout@v2
-
-      - name: Get Packages
-        id: get_json
-        run: echo "::set-output name=json::$(bin/get-packages)"
-
-      - name: Output Packages
-        run: echo "${{ steps.get_json.outputs.json }}"
-
-    outputs:
-      matrix: ${{ steps.get_json.outputs.json }}
-
   php-cs-fixer:
     name: "Auto fix PHP CS"
-    needs: get_packages
     runs-on: ubuntu-latest
     permissions:
       # Give the default GITHUB_TOKEN write permission to commit and push the
@@ -66,9 +42,33 @@ jobs:
         with:
           commit_message: Fixes styling
 
+  get_packages:
+    name: Package splitting
+    needs: php-cs-fixer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: none
+
+      - uses: actions/checkout@v2
+
+      - name: Get Packages
+        id: get_json
+        run: echo "::set-output name=json::$(bin/get-packages)"
+
+      - name: Output Packages
+        run: echo "${{ steps.get_json.outputs.json }}"
+
+    outputs:
+      matrix: ${{ steps.get_json.outputs.json }}
+
   split_packages:
     name: Split Package ${{ matrix.package.name }}
-    needs: php-cs-fixer
+    needs: get_packages
     runs-on: ubuntu-latest
 
     strategy:
