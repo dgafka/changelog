@@ -1,4 +1,4 @@
-name: 'Ecotone Framework'
+name: 'Release ${{ github.ref_name }}'
 
 on:
   push:
@@ -93,6 +93,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: "main"
+          fetch-depth: '0'
       -
         if: "!startsWith(github.ref, 'refs/tags/')"
         uses: "danharrin/monorepo-split-github-action@v2.3.0"
