@@ -36,6 +36,9 @@
         },
         "ecotone": {
             "repository": "change-log-cqrs"
+        },
+        "branch-alias": {
+            "dev-main": "0.3.0-dev"
         }
     }
 }
