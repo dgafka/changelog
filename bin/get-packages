@@ -49,12 +49,6 @@ function getPackages(): array {
         ];
     }
 
-    $packages[] = [
-        'directory'  => realpath(__DIR__ . "/../quickstart-examples"),
-        'name' => "quickstart-examples",
-        'repository' => "quickstart-examples"
-    ];
-
     return $packages;
 }
 
