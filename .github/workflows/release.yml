@@ -20,7 +20,6 @@ jobs:
 
     steps:
       - name: Setup PHP
-        if: "startsWith(github.ref, 'refs/tags/')"
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
@@ -28,26 +27,21 @@ jobs:
       -
 #        In order to not be in detached state due to tag checkout
         uses: actions/checkout@v2
-        if: "startsWith(github.ref, 'refs/tags/')"
         with:
           ref: "main"
 
       - name: Install PHP-CS-Fixer
-        if: "startsWith(github.ref, 'refs/tags/')"
         run: |
           composer global require friendsofphp/php-cs-fixer
           export PATH="$PATH:$HOME/.composer/vendor/bin"
 
       - name: Run PHP CS Fixer
-        if: "startsWith(github.ref, 'refs/tags/')"
         run: php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes
 
       - name: Run Update Required Packages
-        if: "startsWith(github.ref, 'refs/tags/')"
         run: php bin/update-required-packages.php ${{ github.ref_name }}
 
       - name: Commit changes
-        if: "startsWith(github.ref, 'refs/tags/')"
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Release ${{ github.ref_name }}
@@ -95,7 +89,6 @@ jobs:
           ref: "main"
           fetch-depth: '0'
       -
-        if: "!startsWith(github.ref, 'refs/tags/')"
         uses: "danharrin/monorepo-split-github-action@v2.3.0"
         with:
           # ↓ split "packages/easy-coding-standard" directory
@@ -109,7 +102,6 @@ jobs:
           user_name: "Dariusz Gafka"
           user_email: "dgafka.mail@gmail.com"
       -
-        if: "startsWith(github.ref, 'refs/tags/')"
         uses: "danharrin/monorepo-split-github-action@v2.3.0"
         with:
           tag: ${GITHUB_REF#refs/tags/}
