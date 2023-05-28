@@ -2,6 +2,8 @@ name: 'Ecotone Framework'
 
 on:
   push:
+    branches:
+      - main
     tags:
       - '*'
 
@@ -20,27 +22,34 @@ jobs:
 
     steps:
       - name: Setup PHP
+        if: "startsWith(github.ref, 'refs/tags/')"
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
 
       -
+#        In order to not be in detached state due to tag checkout
         uses: actions/checkout@v2
+        if: "startsWith(github.ref, 'refs/tags/')"
         with:
           ref: "main"
 
       - name: Install PHP-CS-Fixer
+        if: "startsWith(github.ref, 'refs/tags/')"
         run: |
           composer global require friendsofphp/php-cs-fixer
           export PATH="$PATH:$HOME/.composer/vendor/bin"
 
       - name: Run PHP CS Fixer
+        if: "startsWith(github.ref, 'refs/tags/')"
         run: php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes
 
       - name: Run Update Required Packages
+        if: "startsWith(github.ref, 'refs/tags/')"
         run: php bin/update-required-packages.php ${{ github.ref_name }}
 
       - name: Commit changes
+        if: "startsWith(github.ref, 'refs/tags/')"
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Release ${{ github.ref_name }}
@@ -58,8 +67,6 @@ jobs:
           coverage: none
 
       - uses: actions/checkout@v2
-        with:
-          ref: "main"
 
       - name: Get Packages
         id: get_json
@@ -84,8 +91,20 @@ jobs:
     steps:
       -
         uses: actions/checkout@v2
+      -
+        if: "!startsWith(github.ref, 'refs/tags/')"
+        uses: "danharrin/monorepo-split-github-action@v2.3.0"
         with:
-          ref: "main"
+          # ↓ split "packages/easy-coding-standard" directory
+          package_directory: '${{ matrix.package.directory }}'
+
+          # ↓ into https://github.com/symplify/easy-coding-standard repository
+          repository_organization: '${{ matrix.package.organisation }}'
+          repository_name: '${{ matrix.package.repository }}'
+
+          # ↓ the user signed under the split commit
+          user_name: "Dariusz Gafka"
+          user_email: "dgafka.mail@gmail.com"
       -
         if: "startsWith(github.ref, 'refs/tags/')"
         uses: "danharrin/monorepo-split-github-action@v2.3.0"
