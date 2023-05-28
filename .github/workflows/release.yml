@@ -84,7 +84,7 @@ jobs:
           package_directory: '${{ matrix.package.directory }}'
 
           # ↓ into https://github.com/symplify/easy-coding-standard repository
-          repository_organization: 'ecotoneframework'
+          repository_organization: '${{ matrix.package.organisation }}'
           repository_name: '${{ matrix.package.repository }}'
 
           # ↓ the user signed under the split commit
@@ -102,7 +102,7 @@ jobs:
           package_directory: '${{ matrix.package.directory }}'
 
           # ↓ into https://github.com/symplify/easy-coding-standard repository
-          repository_organization: 'dgafka'
+          repository_organization: '${{ matrix.package.organisation }}'
           repository_name: '${{ matrix.package.repository }}'
 
           # ↓ the user signed under the split commit
