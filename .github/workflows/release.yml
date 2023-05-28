@@ -38,12 +38,12 @@ jobs:
         run: php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes
 
       - name: Run Update Required Packages
-        run: php bin/update-required-packages.php ${{ github.ref }}
+        run: php bin/update-required-packages.php ${{ github.ref_name }}
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Release ${{ github.ref }}
+          commit_message: Release ${{ github.ref_name }}
 
   get_packages:
     name: Package splitting
