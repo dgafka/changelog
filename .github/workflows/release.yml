@@ -31,15 +31,6 @@ jobs:
       - name: Run PHP CS Fixer
         run: php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes
 
-      - name: conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3.7.1
-
-#  Should be reverted to when a release for 3.9 is made. It eliminates a lot of the above steps.
-#        uses: docker://oskarstark/php-cs-fixer-ga
-#        with:
-#          args: --config=.php-cs-fixer.dist.php --allow-risky=yes
-
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
