@@ -41,9 +41,11 @@ function getPackages(): array {
             continue;
         }
 
+        $name = getPackageNameFromComposerFile($file);
         $packages[] = [
             'directory'  => $directory->getRealPath(),
-            'name' => getPackageNameFromComposerFile($file),
+            'name' => $name,
+            'package' => 'dgafka/' . $name,
             'organisation' => 'dgafka',
             'repository' => getRepositoryFromComposerFile($file)
         ];
