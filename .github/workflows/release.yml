@@ -27,7 +27,7 @@ jobs:
       - name: We need to fetch all related branches to perform next action
         uses: actions/checkout@v4
         with:
-          fetch-depth: '0'
+          fetch-depth: '2'
 
       - name: Checkout branch related to tag
         run: |
