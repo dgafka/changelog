@@ -64,18 +64,7 @@ jobs:
           php-version: 8.1
           coverage: none
 
-# We need to check out what we've committed in previous step
-      - name: We need to fetch all related branches to perform next action
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: '0'
-
-      - name: Checkout branch related to tag
-        run: |
-          raw=$(git branch -r --contains ${{ github.ref }})
-          branch=${raw##*/}
-          echo "checking out branch $branch for tag ${GITHUB_REF#refs/tags/}"
-          git checkout $branch
+      - uses: actions/checkout@v2
 
       - name: Get Packages
         id: get_json
@@ -98,8 +87,18 @@ jobs:
         package: ${{ fromJson(needs.get_packages.outputs.matrix) }}
 
     steps:
-      -
-        uses: actions/checkout@v2
+      # We need to check out what we've committed in previous step
+      - name: We need to fetch all related branches to perform next action
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+
+      - name: Checkout branch related to tag
+        run: |
+          raw=$(git branch -r --contains ${{ github.ref }})
+          branch=${raw##*/}
+          echo "checking out branch $branch for tag ${GITHUB_REF#refs/tags/}"
+          git checkout $branch
 
       -
         uses: "danharrin/monorepo-split-github-action@v2.3.0"
