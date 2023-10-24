@@ -29,12 +29,7 @@ jobs:
         with:
           fetch-depth: '0'
 
-#      - name: Checkout branch related to tag
-#        run: |
-#          echo "checking out branch $(git branch --contains ${GITHUB_REF#refs/tags/} | grep -v '\*' | tr -d ' ') for tag ${GITHUB_REF#refs/tags/}"
-#          git checkout $(git branch --contains ${GITHUB_REF#refs/tags/} | grep -v '\*' | tr -d ' ')
-
-      - name: Get Branch
+      - name: Checkout branch related to tag
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
           branch=${raw##*/}
