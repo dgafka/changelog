@@ -24,14 +24,14 @@ jobs:
         with:
           php-version: 8.1
 
-      -
-        name: We need to fetch all related branches to perform next action
+      - name: We need to fetch all related branches to perform next action
         uses: actions/checkout@v4
         with:
           fetch-depth: '0'
-      - name: "Checkout branch related to tag"
-        run: "git checkout $(git branch --contains ${GITHUB_REF#refs/tags/} | grep -v '\*' | tr -d ' ')"
 
+      - name: "Checkout branch related to tag"
+        run: |
+          git checkout $(git branch --contains ${GITHUB_REF#refs/tags/} | grep -v '\*' | tr -d ' ')
 
       - name: Install PHP-CS-Fixer
         run: |
