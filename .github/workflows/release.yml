@@ -30,6 +30,7 @@ jobs:
           fetch-depth: '0'
 
       - name: "Checkout branch related to tag"
+        uses: actions/checkout@v4
         run: |
           echo "checking out branch $(git branch --contains ${GITHUB_REF#refs/tags/} | grep -v '\*' | tr -d ' ') for tag ${GITHUB_REF#refs/tags/}"
           echo "$(git branch --contains 0.10.0-rc.10)"
