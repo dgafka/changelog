@@ -4,6 +4,9 @@ namespace App\EventHandling;
 
 use Ecotone\Modelling\Attribute\EventHandler;
 
+/**
+ * test 1
+ */
 class NotificationService
 {
     #[EventHandler]

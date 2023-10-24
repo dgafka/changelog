@@ -84,7 +84,7 @@ jobs:
 
     steps:
       -
-        if: "startsWith(github.ref, 'refs/tags/')"
+#        if: "startsWith(github.ref, 'refs/tags/')"
         uses: actions/checkout@v2
 #        with:
 ##          this is because we need to commit to main branch changes with composer.json required versions
