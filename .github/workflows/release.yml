@@ -31,7 +31,7 @@ jobs:
 
       - name: "Checkout branch related to tag"
         run: |
-          echo "checking out $(git branch --contains ${GITHUB_REF#refs/tags/} | grep -v '\*' | tr -d ' ')"
+          echo "checking out branch $(git branch --contains ${GITHUB_REF#refs/tags/} | grep -v '\*' | tr -d ' ') for tag ${GITHUB_REF#refs/tags/}"
           git checkout $(git branch --contains ${GITHUB_REF#refs/tags/} | grep -v '\*' | tr -d ' ')
 
       - name: Install PHP-CS-Fixer
