@@ -27,8 +27,9 @@ jobs:
       -
 #        In order to not be in detached state due to tag checkout
         uses: actions/checkout@v2
-#        with:
-#          ref: "main"
+        with:
+          ref: "git branch --contains ${GITHUB_REF#refs/tags/}"
+          fetch-depth: '0'
 
       - name: Install PHP-CS-Fixer
         run: |
@@ -48,7 +49,7 @@ jobs:
 
   get_packages:
     name: Package splitting
-#    needs: prepare-code-for-release
+    needs: prepare-code-for-release
     runs-on: ubuntu-latest
 
     steps:
@@ -90,6 +91,7 @@ jobs:
 #          fetch-depth: '0'
 #      -
 #        uses: "danharrin/monorepo-split-github-action@v2.3.0"
+#        if: "!startsWith(github.ref, 'refs/tags/')"
 #        with:
 #          # ↓ split "packages/easy-coding-standard" directory
 #          package_directory: '${{ matrix.package.directory }}'
