@@ -15,7 +15,7 @@
     },
     "require": {
         "ecotone/lite-application-starter": "^1.0.1",
-        "dgafka/change-log-cqrs": "~0.10.0-rc.21"
+        "dgafka/change-log-cqrs": "~0.10.0-rc.23"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
@@ -39,7 +39,7 @@
             "repository": "change-log-event-handling"
         },
         "branch-alias": {
-            "dev-main": "0.10.0-rc.21-dev"
+            "dev-main": "0.10.0-rc.23-dev"
         }
     }
 }
