@@ -3,7 +3,7 @@
 namespace App\CQRS;
 
 /**
- * test
+ * test 2
  */
 class PlaceOrder
 {
